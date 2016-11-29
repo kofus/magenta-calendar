@@ -1,0 +1,17 @@
+{
+    "name": "kofus/magenta-calendar",
+    "type": "library",
+    
+    "autoload": {
+        "psr-0": {
+            "Kofus\\Calendar\\": "src/Kofus/Calendar/"
+        },
+        "classmap" : ["Kofus/Calendar/Module.php"]
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.4.*",
+        "doctrine/doctrine-orm-module": "0.*"
+    }
+}
+
