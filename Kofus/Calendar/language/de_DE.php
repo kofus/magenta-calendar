@@ -1,4 +1,6 @@
 <?php
 return array(
-	'Calendar' => 'Kalender'
+	'Calendar' => 'Kalender',
+    'Calendars' => 'Kalender',
+    'Calendar Entry' => 'Kalendereintrag'
 );

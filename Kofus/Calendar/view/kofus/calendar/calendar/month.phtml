@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-12">
+		<h1><?php echo $this->month->getDateTimeStart()->format('F Y') ?></h1>
+    </div>
+	<div class="col-md-9">
+        <nav class="navbar navbar-default">
+            <?php 
+                echo $this->navigation()->menu()
+                    ->setContainer($this->navMonths)
+                    ->setUlClass('nav navbar-nav navbar-left') 
+            ?>
+    		<ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+    				<a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#"><?php echo $this->month->getDateTimeStart()->format('Y') ?> <span class="caret"></span></a>
+    				<ul class="dropdown-menu">
+    				    <?php foreach ($this->years as $year) : ?>
+        				    <li>
+                				<a href="<?php echo $this->url('kofus_calendar', array('controller' => 'calendar', 'action' => 'month', 'id' => $this->month->getCalendar()->getNodeId(), 'id2' => $year . '-' . $this->month->getDateTimeStart()->format('m')), true) ?>">
+                                    <?php echo $this->escapehtml($year) ?>            														
+            					</a>
+            				</li>
+        				<?php endforeach ?>
+        			</ul>
+        		</li>
+        	</ul>
+	   </nav>	
+	   
+	   <table class="table">
+	       <thead>
+	           <tr>
+	               <td>Montag</td>
+	               <td>Dienstag</td>
+	               <td>Mittwoch</td>
+	               <td>Donnerstag</td>
+	               <td>Freitag</td>
+	               <td>Samsatg</td>
+	               <td>Sonntag</td>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <?php foreach ($this->month->getWeeks() as $week) : ?>
+	               <tr>
+	                   <?php foreach ($week->getDays() as $day) : ?>
+	                       <td>
+	                           <?php echo $day->getDateTimeStart()->format('d.') ?>
+	                       </td>
+	                   <?php endforeach ?>
+	               </tr>
+	           <?php endforeach ?>
+	           
+	       </tbody>
+	   </table>
+	</div>
+	<div class="col-md-3">
+		  <div class="list-group">
+		      <a href="<?php echo $this->url('kofus_system', array('controller' => 'node', 'action' => 'add', 'id' => 'CALENTRY'), true) ?>" class="list-group-item">
+		          <span class="glyphicon glyphicon-plus"></span>
+		          <?php echo $this->translate('Calendar Entry') ?>
+		      </a>
+		      <a href="<?php echo $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $this->month->getCalendar()->getNodeId()), true) ?>" class="list-group-item">
+		          <span class="glyphicon glyphicon-pencil"></span>
+		          <?php echo $this->translate('Edit') ?>
+		      </a>
+		      
+		  </div>
+    </div>	
+</div>

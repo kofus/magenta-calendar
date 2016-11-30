@@ -8,11 +8,52 @@ use Kofus\System\Entity\LinkEntity;
 use Application\Entity\MyeAccountEntity;
 use Kofus\User\Entity\AuthEntity;
 
-
 class CalendarController extends AbstractActionController
 {
    public function listAction()
    {
+       $this->archive()->uriStack()->push();
+       $entities = $this->nodes()->getRepository('CAL')->findAll();
+       return new ViewModel(array(
+       	    'entities' => $entities
+       ));
+   }
+   
+   public function monthAction()
+   {
+       $calendar = $this->nodes()->getNode($this->params('id'), 'CAL');
+       $service = $this->getServiceLocator()->get('KofusCalendarService');
+
+       // Create month container
+       $requestedMonth = $this->params('id2', date('Y-m'));
+       $month = $service->getMonth($calendar, $requestedMonth);
+
+       // Build navigation
+       $dt = \DateTime::createFromFormat('Y-m-d', $requestedMonth . '-01');
+       $navMonths = new \Zend\Navigation\Navigation();
+       $routeMatch = $this->getServiceLocator()->get('Application')->getMvcEvent()->getRouteMatch();
+       for ($i = 1; $i < 13; $i += 1) {
+           $dt->setDate($dt->format('Y'), $i, 1);
+           $page = new \Zend\Navigation\Page\Mvc(array(
+               'route' => 'kofus_calendar',
+               'controller' => 'calendar',
+               'action' => 'month',
+               'label' => $dt->format('M'),
+               'params' => array(
+               'id' => $calendar->getNodeId(),
+               'id2' => $dt->format('Y-m')
+           )));
+           $page->setRouteMatch($routeMatch);
+           $navMonths->addPage($page);
+       }
        
+       // Years
+       $years = array(date('Y'), date('Y') + 1);
+       
+       return new ViewModel(array(
+            'month' => $month,
+            'navMonths' => $navMonths,
+            'years' => $years
+       ));
    }
 }
