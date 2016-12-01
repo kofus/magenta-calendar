@@ -1,7 +1,7 @@
 <?php
 return array(
     'nodes' => array(
-        'enabled' => array('CAL', 'CALENTRY'),
+        'enabled' => array('CAL', 'CALENT'),
         'available' => array(
             'CAL' => array(
                 'label' => 'Calendar',
@@ -20,7 +20,7 @@ return array(
                     )
                 )
             ),
-            'CALENTRY' => array(
+            'CALENT' => array(
             		'label' => 'Calendar Entry',
             		'entity' => 'Kofus\Calendar\Entity\EntryEntity',
             		'form' => array(

@@ -41,5 +41,30 @@ abstract class AbstractContainer
     	return $this->dateTimeEnd;
     }
     
+    protected $entries = array();
+    
+    public function setEntries(array $entries)
+    {
+        $this->entries = $entries; return $this;
+    }
+    
+    public function getEntries($filterKey=null, $filterValue=null)
+    {
+        switch ($filterKey) {
+        	case 'day':
+        	    $entries = array();
+        	    foreach ($this->entries as $entry) {
+        	        $dateArray = $entry->getDate();
+        	        if ($dateArray != $filterValue)
+        	            continue;
+        	        $entries[] = $entry;
+        	    }
+        	    return $entries;
+        	    break;
+        	default:
+        	    return $this->entries;
+        }
+    }
+    
     
 }

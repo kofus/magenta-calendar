@@ -12,10 +12,13 @@ class MasterFieldset extends Fieldset implements InputFilterProviderInterface
     public function init()
     {
         $el = new Element\Text('date', array(
-        		'label' => 'Date'
+            'label' => 'Date'
         ));
         $el->setAttribute('class', 'datepicker');
         $this->add($el);
+        
+        //$el = new Element\Text('time', array('label' => 'Time'));
+        //$this->add($el);
         
         $el = new Element\Text('title', array(
             'label' => 'Title'
@@ -32,8 +35,21 @@ class MasterFieldset extends Fieldset implements InputFilterProviderInterface
     {
         return array(
             'date' => array(
-        	'required' => true
-        ),
+                'required' => true,
+                'validators' => array(
+                    array(
+                        'name' => 'Zend\I18n\Validator\DateTime',
+                        'options' => array(
+                            'dateType' => \IntlDateFormatter::SHORT
+                        )
+                    )
+                )
+            ),
+            /*
+            'time' => array(
+            		'required' => false,
+            		
+            ),   */          
             'title' => array(
                 'required' => true,
                 'filters' => array(

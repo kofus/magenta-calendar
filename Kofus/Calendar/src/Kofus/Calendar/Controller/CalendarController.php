@@ -21,15 +21,16 @@ class CalendarController extends AbstractActionController
    
    public function monthAction()
    {
+       $this->archive()->uriStack()->push();
        $calendar = $this->nodes()->getNode($this->params('id'), 'CAL');
        $service = $this->getServiceLocator()->get('KofusCalendarService');
 
        // Create month container
-       $requestedMonth = $this->params('id2', date('Y-m'));
-       $month = $service->getMonth($calendar, $requestedMonth);
+       $r = explode('-', $this->params('id2', date('Y-m')));
+       $month = $service->getMonth($calendar, $r[0], $r[1]);
 
        // Build navigation
-       $dt = \DateTime::createFromFormat('Y-m-d', $requestedMonth . '-01');
+       $dt = \DateTime::createFromFormat('Y-m-d', $r[0] . '-' . $r[1] . '-01');
        $navMonths = new \Zend\Navigation\Navigation();
        $routeMatch = $this->getServiceLocator()->get('Application')->getMvcEvent()->getRouteMatch();
        for ($i = 1; $i < 13; $i += 1) {
@@ -38,7 +39,7 @@ class CalendarController extends AbstractActionController
                'route' => 'kofus_calendar',
                'controller' => 'calendar',
                'action' => 'month',
-               'label' => $dt->format('M'),
+               'label' => $dt->format('F'),
                'params' => array(
                'id' => $calendar->getNodeId(),
                'id2' => $dt->format('Y-m')

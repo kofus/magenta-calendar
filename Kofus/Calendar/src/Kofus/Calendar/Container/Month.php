@@ -36,6 +36,7 @@ class Month extends AbstractContainer
         foreach ($this->getWeekNumbers() as $number) {
             $week = new Week($number, $year);
             $week->setCalendar($this->getCalendar());
+            $week->setEntries($this->getEntries());
             $weeks[] = $week;
         }
         return $weeks;
