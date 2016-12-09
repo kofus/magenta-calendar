@@ -54,7 +54,7 @@ abstract class AbstractContainer
         	case 'day':
         	    $entries = array();
         	    foreach ($this->entries as $entry) {
-        	        $dateArray = $entry->getDate();
+        	        $dateArray = $entry->getDate1();
         	        if ($dateArray != $filterValue)
         	            continue;
         	        $entries[] = $entry;

@@ -11,7 +11,7 @@ class MasterFieldset extends Fieldset implements InputFilterProviderInterface
 
     public function init()
     {
-        $el = new Element\Text('date', array(
+        $el = new Element\Text('date1', array(
             'label' => 'Date'
         ));
         $el->setAttribute('class', 'datepicker');
@@ -34,7 +34,7 @@ class MasterFieldset extends Fieldset implements InputFilterProviderInterface
     public function getInputFilterSpecification()
     {
         return array(
-            'date' => array(
+            'date1' => array(
                 'required' => true,
                 'validators' => array(
                     array(

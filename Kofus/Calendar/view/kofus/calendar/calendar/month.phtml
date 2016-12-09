@@ -51,7 +51,7 @@
 	                           <?php foreach ($entries as $entry) : ?>
 	                               <a href="<?php echo $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true) ?>">
     	                               <span class="label label-default">
-        	                               <?php echo $entry->getTime(true) ?>
+        	                               <?php echo $entry->getTime1(true) ?>
         	                               <?php echo $entry->getTitle() ?>
     	                               </span>
 	                               </a><br>
