@@ -243,5 +243,23 @@ class EntryEntity implements Node\NodeInterface, Node\EnableableNodeInterface
 		return $this->getTitle() . ' (' . $this->getNodeId() . ')';
 	}
 	
+	/**
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	protected $content = true;
+	
+	public function setContent($value)
+	{
+	    $this->content = $value; return $this;
+	}
+	
+	public function getContent()
+	{
+	    return $this->content; 
+	}
+	
+	
+	
+	
 	
 }

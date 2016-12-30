@@ -9,5 +9,12 @@ class Day extends AbstractContainer
         $this->dateTimeStart = \DateTime::createFromFormat('Y-m-d', $date);
     }
     
+    public function isHoliday()
+    {
+        if ($this->getDateTimeStart()->format('w') == 0)
+            return true;
+        return false;
+    }
+    
     
 }

@@ -16,6 +16,12 @@ class MasterFieldset extends Fieldset implements InputFilterProviderInterface
         ));
         $this->add($el);
         
+        $el = new Element\MultiCheckbox('lists', array('label' => 'Tage kennzeichnen'));
+        $el->setValueOptions(array(
+        	1 => 'Deutschland: Gesetzliche Feiertage',
+        ));
+        $this->add($el);
+        
         $el = new Element\Checkbox('enabled', array(
             'label' => 'enabled?'
         ));

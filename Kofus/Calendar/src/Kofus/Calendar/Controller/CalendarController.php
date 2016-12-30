@@ -53,6 +53,7 @@ class CalendarController extends AbstractActionController
        
        return new ViewModel(array(
             'month' => $month,
+           'calendar' => $calendar,
             'navMonths' => $navMonths,
             'years' => $years
        ));

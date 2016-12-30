@@ -1,3 +1,10 @@
+<?php 
+    $dt = \DateTime::createFromFormat('Y-m-d', $this->month->getDateTimeStart()->format('Y-m-d'));
+    $previous = $dt->modify('-5 day')->format('Y-m');
+    $next = $dt->modify('+1 month')->modify('+10 day')->format('Y-m');
+?>
+
+
 <div class="row">
 	<div class="col-md-12">
         <nav class="navbar navbar-default">
@@ -25,28 +32,42 @@
         </nav>	
 
         <h3 style="text-align: center">
+            <a href="<?php echo $this->url('kofus_calendar', array('controller' => 'calendar', 'action' => 'month', 'id' => $this->calendar->getNodeId(), 'id2' => $previous)) ?>" class="pull-left">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a href="<?php echo $this->url('kofus_calendar', array('controller' => 'calendar', 'action' => 'month', 'id' => $this->calendar->getNodeId(), 'id2' => $next)) ?>" class="pull-right">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+            
             <?php echo $this->translate($this->month->getDateTimeStart()->format('F')) ?>
             <?php echo $this->month->getDateTimeStart()->format('Y') ?>
         </h3>
 	   
-	   <table class="table">
+	   <table class="table calendar calendar-month">
 	       <thead>
 	           <tr>
-	               <td><?php echo $this->translate('Monday') ?></td>
-	               <td><?php echo $this->translate('Tuesday') ?></td>
-	               <td><?php echo $this->translate('Wednesday') ?></td>
-	               <td><?php echo $this->translate('Thursday') ?></td>
-	               <td><?php echo $this->translate('Friday') ?></td>
-	               <td><?php echo $this->translate('Saturday') ?></td>
-	               <td><?php echo $this->translate('Sunday') ?></td>
+	               <th><?php echo $this->translate('Monday') ?></th>
+	               <th><?php echo $this->translate('Tuesday') ?></th>
+	               <th><?php echo $this->translate('Wednesday') ?></th>
+	               <th><?php echo $this->translate('Thursday') ?></th>
+	               <th><?php echo $this->translate('Friday') ?></th>
+	               <th><?php echo $this->translate('Saturday') ?></th>
+	               <th><?php echo $this->translate('Sunday') ?></th>
 	           </tr>
 	       </thead>
 	       <tbody>
 	           <?php foreach ($this->month->getWeeks() as $week) : ?>
 	               <tr>
 	                   <?php foreach ($week->getDays() as $day) : ?>
-	                       <td>
-	                           <?php echo $day->getDateTimeStart()->format('d') ?><br>
+	                       <td <?php
+	                           $css = array();
+	                           if ($day->getDateTimeStart()->format('Y-m') != $this->month->getDateTimeStart()->format('Y-m'))
+                                    $css[] = 'inactive';
+                               if ($day->isHoliday())
+                                    $css[] = 'danger';
+                               if ($css) echo 'class="'.implode(' ', $css).'"';
+	                           ?>>
+	                           <strong><?php echo $day->getDateTimeStart()->format('d') ?></strong><br>
 	                           <?php $entries = $day->getEntries() ?>
 	                           <?php foreach ($entries as $entry) : ?>
 	                               <a href="<?php echo $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true) ?>">
@@ -63,18 +84,7 @@
 	           
 	       </tbody>
 	   </table>
+       <?php echo $this->nodeNavigation($this->calendar, 'month')->render() ?>
+	   
 	</div>
-	<div class="col-md-3">
-		  <div class="list-group">
-		      <a href="<?php echo $this->url('kofus_system', array('controller' => 'node', 'action' => 'add', 'id' => 'CALENT'), true) ?>" class="list-group-item">
-		          <span class="glyphicon glyphicon-plus"></span>
-		          <?php echo $this->translate('Calendar Entry') ?>
-		      </a>
-		      <a href="<?php echo $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $this->month->getCalendar()->getNodeId()), true) ?>" class="list-group-item">
-		          <span class="glyphicon glyphicon-pencil"></span>
-		          <?php echo $this->translate('Edit') ?>
-		      </a>
-		      
-		  </div>
-    </div>	
 </div>

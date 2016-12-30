@@ -50,6 +50,7 @@ class CalendarEntity implements Node\NodeInterface, Node\EnableableNodeInterface
 		return $this->title;
 	}
 	
+	
 	/**
 	 * @ORM\Column(type="boolean")
 	 */
