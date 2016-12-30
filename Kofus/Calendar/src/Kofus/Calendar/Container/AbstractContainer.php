@@ -70,7 +70,7 @@ abstract class AbstractContainer
     
     public function addHolidayList($id, array $data)
     {
-        $this->holidaylists[$id] = $data; return $this;
+        $this->holidayLists[$id] = $data; return $this;
     }
     
     public function setHolidayLists(array $lists)

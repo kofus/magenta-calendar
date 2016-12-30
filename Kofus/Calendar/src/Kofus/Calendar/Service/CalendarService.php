@@ -13,10 +13,10 @@ class CalendarService extends AbstractService
         
         $lists = $this->config()->get('calendar.holidays.available');
         foreach ($calendar->getHolidayListIds() as $listId) {
-            if (isset($allLists[$listId]))
-                $container->addHolidayList($listId, $allLists[$listId]);
+            if (isset($lists[$listId]))
+                $container->addHolidayList($listId, $lists[$listId]);
         }
-        $container->setHolidayLists($lists);
+
         
         $qb = $this->nodes()->createQueryBuilder('CALENT');
         $entries = $qb->where('n.year1 IS NULL OR n.year1 = :year')

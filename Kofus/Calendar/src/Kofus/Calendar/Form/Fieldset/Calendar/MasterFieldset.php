@@ -42,7 +42,10 @@ class MasterFieldset extends Fieldset implements InputFilterProviderInterface, S
                         'name' => 'Zend\Filter\StringTrim'
                     )
                 )
-            )
+            ),
+            'holidays' => array(
+                	'required' => false
+                )
         );
     }
     
