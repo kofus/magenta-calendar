@@ -16,5 +16,23 @@ class Day extends AbstractContainer
         return false;
     }
     
+    public function getHolidays()
+    {
+        $today = $this->getDateTimeStart()->format('Y-m-d');
+        $holidays = array();
+        foreach ($this->holidayLists as $listId => $data) {
+            foreach ($data['entries'] as $date => $label) {
+                if ($date == $today) {
+                    $holidays[] = array(
+                    	'label' => $label,
+                        'list' => $data['label'],
+                        'list_id' => $listId
+                    );
+                }
+            }
+        }
+        return $holidays;
+    }
+    
     
 }

@@ -11,11 +11,20 @@ class CalendarService extends AbstractService
         $container = new Month($year . '-' . $month);
         $container->setCalendar($calendar);
         
+        $lists = $this->config()->get('calendar.holidays.available');
+        foreach ($calendar->getHolidayListIds() as $listId) {
+            if (isset($allLists[$listId]))
+                $container->addHolidayList($listId, $allLists[$listId]);
+        }
+        $container->setHolidayLists($lists);
+        
         $qb = $this->nodes()->createQueryBuilder('CALENT');
         $entries = $qb->where('n.year1 IS NULL OR n.year1 = :year')
             ->setParameter('year', $year)
             ->andWhere('n.month1 IS NULL OR n.month1 = :month')
             ->setParameter('month', $month)
+            ->andWhere('n.calendar = :calendar')
+            ->setParameter('calendar', $calendar)
             ->getQuery()->getResult();
         $container->setEntries($entries);
         

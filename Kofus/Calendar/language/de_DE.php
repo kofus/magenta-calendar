@@ -11,5 +11,6 @@ return array(
     'Thursday' => 'Donnerstag',
     'Friday' => 'Freitag',
     'Saturday' => 'Samstag',
-    'Sunday' => 'Sonntag'
+    'Sunday' => 'Sonntag',
+    'Holidays' => 'Feiertage'
 );

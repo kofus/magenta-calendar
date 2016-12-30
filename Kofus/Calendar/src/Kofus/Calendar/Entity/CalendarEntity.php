@@ -50,6 +50,24 @@ class CalendarEntity implements Node\NodeInterface, Node\EnableableNodeInterface
 		return $this->title;
 	}
 	
+	/**
+	 * @ORM\Column(type="json_array")
+	 */
+	protected $holidayListIds = array();
+	
+	public function setHolidayListIds(array $value)
+	{
+		$this->holidayListIds = $value; return $this;
+	}
+	
+	public function getHolidayListIds()
+	{
+		return $this->holidayListIds;
+	}
+	
+	
+	
+	
 	
 	/**
 	 * @ORM\Column(type="boolean")

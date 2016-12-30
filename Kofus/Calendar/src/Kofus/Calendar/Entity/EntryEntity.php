@@ -62,8 +62,13 @@ class EntryEntity implements Node\NodeInterface, Node\EnableableNodeInterface
 		$this->title = $value; return $this;
 	}
 	
-	public function getTitle()
+	public function getTitle($maxLength=null)
 	{
+	    if ($maxLength && $maxLength < strlen($this->title)) {
+	        $title = substr($this->title, 0, $maxLength);
+	        $title .= '...';
+	        return $title;
+	    }
 		return $this->title;
 	}
 	

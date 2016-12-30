@@ -10,7 +10,8 @@ class MasterHydrator implements HydratorInterface
     {
         return array(
             'title' => $object->getTitle(),
-            'enabled' => $object->isEnabled()
+            'enabled' => $object->isEnabled(),
+            'holidays' => $object->getHolidayListIds()
         );
     }
 
@@ -18,6 +19,7 @@ class MasterHydrator implements HydratorInterface
     {
         $object->setTitle($data['title']);
         $object->isEnabled($data['enabled']);
+        $object->setHolidayListIds($data['holidays']);
         return $object;
     }
 }

@@ -15,6 +15,10 @@ return array(
         )
     ),
     
+    'public_paths' => array(
+        __DIR__ . '/../public'
+    ),
+    
     'router' => array(
         'routes' => array(
             'kofus_calendar' => array(

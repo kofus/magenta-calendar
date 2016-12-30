@@ -4,9 +4,10 @@ namespace Kofus\Calendar\Form\Fieldset\Calendar;
 use Zend\Form\Element;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
-use Zend\Filter;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class MasterFieldset extends Fieldset implements InputFilterProviderInterface
+class MasterFieldset extends Fieldset implements InputFilterProviderInterface, ServiceLocatorAwareInterface
 {
 
     public function init()
@@ -16,10 +17,13 @@ class MasterFieldset extends Fieldset implements InputFilterProviderInterface
         ));
         $this->add($el);
         
-        $el = new Element\MultiCheckbox('lists', array('label' => 'Tage kennzeichnen'));
-        $el->setValueOptions(array(
-        	1 => 'Deutschland: Gesetzliche Feiertage',
-        ));
+        $el = new Element\MultiCheckbox('holidays', array('label' => 'Holidays'));
+        $valueOptions = array();
+        $lists = $this->getServiceLocator()->get('KofusConfigService')->get('calendar.holidays.available');
+        foreach ($lists as $id => $config) 
+            $valueOptions[$id] = $config['label'];
+        $el->setValueOptions($valueOptions);
+        
         $this->add($el);
         
         $el = new Element\Checkbox('enabled', array(
@@ -41,5 +45,17 @@ class MasterFieldset extends Fieldset implements InputFilterProviderInterface
             )
         );
     }
+    
+    protected $sm;
+    
+    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    {
+    	$this->sm = $serviceLocator;
+    }
+    
+    public function getServiceLocator()
+    {
+    	return $this->sm;
+    }    
 }
 

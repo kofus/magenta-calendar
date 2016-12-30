@@ -66,5 +66,23 @@ abstract class AbstractContainer
         }
     }
     
+    protected $holidayLists = array();
+    
+    public function addHolidayList($id, array $data)
+    {
+        $this->holidaylists[$id] = $data; return $this;
+    }
+    
+    public function setHolidayLists(array $lists)
+    {
+        $this->holidayLists = $lists; return $this;
+    }
+    
+    public function getHolidayLists()
+    {
+        return $this->holidayLists;
+    }
+    
+ 
     
 }

@@ -2,11 +2,13 @@
     $dt = \DateTime::createFromFormat('Y-m-d', $this->month->getDateTimeStart()->format('Y-m-d'));
     $previous = $dt->modify('-5 day')->format('Y-m');
     $next = $dt->modify('+1 month')->modify('+10 day')->format('Y-m');
+    $today = new \DateTime();
 ?>
 
 
 <div class="row">
 	<div class="col-md-12">
+        <h1><?php echo $this->calendar->getTitle() ?></h1>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <?php 
@@ -65,15 +67,20 @@
                                     $css[] = 'inactive';
                                if ($day->isHoliday())
                                     $css[] = 'danger';
+                               if ($day->getDateTimeStart()->format('Y-m-d') == $today->format('Y-m-d'))
+                                   $css[] = 'today';
                                if ($css) echo 'class="'.implode(' ', $css).'"';
 	                           ?>>
 	                           <strong><?php echo $day->getDateTimeStart()->format('d') ?></strong><br>
+	                           <?php foreach ($day->getHolidays() as $holiday) : ?>
+	                               <?php echo $holiday['label'] ?><br>
+	                           <?php endforeach ?>
 	                           <?php $entries = $day->getEntries() ?>
 	                           <?php foreach ($entries as $entry) : ?>
 	                               <a href="<?php echo $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true) ?>">
-    	                               <span class="label label-default">
+    	                               <span class="label label-default" title="<?php echo $this->escapeHtmlAttr($entry->getTitle()) ?>">
         	                               <?php echo $entry->getTime1(true) ?>
-        	                               <?php echo $entry->getTitle() ?>
+        	                               <?php echo $entry->getTitle(20) ?>
     	                               </span>
 	                               </a><br>
 	                           <?php endforeach ?>

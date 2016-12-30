@@ -40,6 +40,7 @@ class Week extends AbstractContainer
         
         for ($i = 0; $i < 7; $i += 1) {
             $day = new Day($dt->format('Y-m-d'));
+            $day->setHolidayLists($this->getHolidayLists());
             $day->setCalendar($this->getCalendar());
             $day->setEntries($this->getEntries('day', array($dt->format('Y'), $dt->format('m'), $dt->format('d'))));
             $days[] = $day;
