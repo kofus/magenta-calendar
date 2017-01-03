@@ -26,7 +26,8 @@ class Day extends AbstractContainer
                     $holidays[] = array(
                     	'label' => $label,
                         'list' => $data['label'],
-                        'list_id' => $listId
+                        'list_id' => $listId,
+                        'type' => $data['type']
                     );
                 }
             }

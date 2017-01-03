@@ -77,11 +77,9 @@
 	                           <?php endforeach ?>
 	                           <?php $entries = $day->getEntries() ?>
 	                           <?php foreach ($entries as $entry) : ?>
-	                               <a href="<?php echo $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true) ?>">
-    	                               <span class="label label-default" title="<?php echo $this->escapeHtmlAttr($entry->getTitle()) ?>">
-        	                               <?php echo $entry->getTime1(true) ?>
-        	                               <?php echo $entry->getTitle(20) ?>
-    	                               </span>
+	                               <a title="<?php echo $this->escapeHtmlAttr($entry->getTitle()) ?>" class="label label-default" href="<?php echo $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true) ?>">
+    	                               <?php echo $entry->getTime1(true) ?>
+    	                               <?php echo $entry->getTitle(20) ?>
 	                               </a><br>
 	                           <?php endforeach ?>
 	                       </td>

@@ -9,7 +9,7 @@ return array(
             'available' => array(
                 'de_DE_HE' => array(
                     'label' => 'Gesetzl. Feiertage in Hessen',
-                    'type' => 'holiday',
+                    'type' => 'text',
                     'entries' => array(
                         '2016-01-01' => 'Neujahr',
                         '2016-03-25' => 'Karfreitag',
@@ -36,7 +36,7 @@ return array(
                 ),
                 'de_DE_HE_INFO' => array(
                     'label' => 'Nicht gesetzl. Feiertage in Hessen',
-                    'type' => 'info',
+                    'type' => 'text',
                     'entries' => array(
                         '2016-12-31' => 'Silvester',
                         '2017-01-06' => 'Heilige Drei Könige',

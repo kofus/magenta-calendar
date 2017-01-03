@@ -251,7 +251,7 @@ class EntryEntity implements Node\NodeInterface, Node\EnableableNodeInterface
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
-	protected $content = true;
+	protected $content;
 	
 	public function setContent($value)
 	{

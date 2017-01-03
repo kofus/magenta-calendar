@@ -67,8 +67,10 @@ return array(
         )
     ),
     
-    'controller_plugins' => array(
-        'invokables' => array()
+    'view_helpers' => array(
+        'invokables' => array(
+            'calendarEntryTime' => 'Kofus\Calendar\View\Helper\CalendarEntryTimeHelper'
+        )
     ),
     
     'service_manager' => array(
