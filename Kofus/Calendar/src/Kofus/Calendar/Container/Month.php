@@ -21,8 +21,13 @@ class Month extends AbstractContainer
         
         while ($dt->format('m') == $month) {
             $weekNumber = $dt->format('W');
-            if ($weekNumber != $lastWeekNumber)
-                $weekNumbers[] = $weekNumber; 
+            if ($weekNumber != $lastWeekNumber) {
+                if ($month == 1 && $weekNumber > 40) {
+                    $weekNumbers[] = array($weekNumber, $dt->format('Y') - 1);
+                } else {
+                    $weekNumbers[] = array($weekNumber, $dt->format('Y'));
+                }
+            } 
             $dt->modify('+1 day');
             $lastWeekNumber = $weekNumber;
         }
@@ -33,8 +38,8 @@ class Month extends AbstractContainer
     {
         $weeks = array();
         $year = $this->getDateTimeStart()->format('Y');
-        foreach ($this->getWeekNumbers() as $number) {
-            $week = new Week($number, $year);
+        foreach ($this->getWeekNumbers() as $delta) {
+            $week = new Week($delta[0], $delta[1]);
             $week->setCalendar($this->getCalendar());
             $week->setEntries($this->getEntries());
             $week->setHolidayLists($this->getHolidayLists());

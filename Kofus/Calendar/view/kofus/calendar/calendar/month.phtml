@@ -62,17 +62,36 @@
 	               <tr>
 	                   <?php foreach ($week->getDays() as $day) : ?>
 	                       <td <?php
-	                           $css = array();
-	                           if ($day->getDateTimeStart()->format('Y-m') != $this->month->getDateTimeStart()->format('Y-m'))
-                                    $css[] = 'inactive';
-                               if ($day->isHoliday())
-                                    $css[] = 'danger';
-                               if ($day->getDateTimeStart()->format('Y-m-d') == $today->format('Y-m-d'))
-                                   $css[] = 'today';
-                               if ($css) echo 'class="'.implode(' ', $css).'"';
-	                           ?>>
+	                       $css = array();
+	                       if ($day->getDateTimeStart()->format('Y-m') != $this->month->getDateTimeStart()->format('Y-m'))
+	                       	$css[] = 'inactive';
+	                       if ($day->isHoliday())
+	                       	$css[] = 'danger';
+	                       if ($day->getDateTimeStart()->format('Y-m-d') == $today->format('Y-m-d'))
+	                       	$css[] = 'today';
+	                       if ($css) echo 'class="'.implode(' ', $css).'"';
+	                       ?>>
+                           
+                           <?php foreach ($day->getHolidays() as $holiday) : ?>
+                               <?php if ($holiday['type'] !== 'icon') continue ?>
+                               
+                               <?php if ($holiday['label'] == 'new') : ?>
+                                   <i class="wi wi-moon-new pull-right" data-toggle="tooltip" title="Neumond"></i>
+                               <?php elseif ($holiday['label'] == 'full') : ?>
+                                   <i class="wi wi-moon-full pull-right" data-toggle="tooltip" title="Vollmond"></i>
+                               <?php elseif ($holiday['label'] == 'waxing') : ?>
+                                   <i class="wi wi-moon-waxing-crescent-4 pull-right" data-toggle="tooltip" title="Zunehmender Mond"></i>
+                               <?php elseif ($holiday['label'] == 'waning') : ?>
+                                   <i class="wi wi-moon-waning-crescent-2 pull-right" data-toggle="tooltip" title="Abnehmender Mond"></i>
+                                   
+                               <?php endif ?>
+                               
+                           <?php endforeach ?>
+	                       	                           
+	       
 	                           <strong><?php echo $day->getDateTimeStart()->format('d') ?></strong><br>
 	                           <?php foreach ($day->getHolidays() as $holiday) : ?>
+	                                      <?php if ($holiday['type'] != 'text') continue ?>
 	                               <?php echo $holiday['label'] ?><br>
 	                           <?php endforeach ?>
 	                           <?php $entries = $day->getEntries() ?>
