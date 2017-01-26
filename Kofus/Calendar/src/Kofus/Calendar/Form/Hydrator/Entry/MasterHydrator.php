@@ -38,8 +38,17 @@ class MasterHydrator implements HydratorInterface, ServiceLocatorAwareInterface
         
         $time1 = null;
         $array = $object->getTime1();
-        if (isset($array[0])) {
-            $time1 = implode(':', $array);
+        if ($array) {
+            $timeSegments = array();
+            foreach ($array as $index => $timeSegment) {
+                if ($index > 0) {
+                    $timeSegments[] = str_pad($timeSegment, 2, '0', STR_PAD_LEFT);
+                } else {
+                    $timeSegments[] = $timeSegment;
+                }
+            }
+            
+            $time1 = implode(':', $timeSegments);
         }
         
         $calendarId = null;
