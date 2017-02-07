@@ -8,7 +8,7 @@
 
 <div class="row">
 	<div class="col-md-12">
-        <h1><?php echo $this->calendar->getTitle() ?></h1>
+        <?php echo $this->nodeNavigation($this->calendar, 'month', $this->calendar->getTitle())->render() ?>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <?php 
@@ -108,7 +108,7 @@
 	           
 	       </tbody>
 	   </table>
-       <?php echo $this->nodeNavigation($this->calendar, 'month')->render() ?>
+
 	   
 	</div>
 </div>
