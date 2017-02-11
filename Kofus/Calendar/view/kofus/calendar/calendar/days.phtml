@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-md-12">
+        <table class="table calendar calendar-month">
+            <thead>
+                <tr>
+                    <?php foreach ($this->days as $day) : ?>
+                        <th><?php echo $day->getDateTimeStart()->format('l') ?></th>        
+                    <?php endforeach ?>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <?php foreach ($this->days as $day) : ?>
+                        <?php echo $this->partial('kofus/calendar/calendar/day.phtml', array('day' => $day)) ?>
+                    <?php endforeach ?>
+                </tr>
+	       </tbody>
+	   </table>
+	</div>
+</div>
