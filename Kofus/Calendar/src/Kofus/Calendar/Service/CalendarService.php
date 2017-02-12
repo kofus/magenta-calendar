@@ -42,15 +42,35 @@ class CalendarService extends AbstractService
     		if (isset($lists[$listId]))
     			$container->addHolidayList($listId, $lists[$listId]);
     	}
-    
+    	
+        $start = $container->getDateTimeStart();
+        $end = $container->getDateTimeEnd();
     	$qb = $this->nodes()->createQueryBuilder('CALENT');
-    	$entries = $qb->where("CONCAT(n.year1, '-', n.month1, '-', n.day1) >= :date1")
-         	->andWhere("CONCAT(n.year2, '-', n.month2, '-', n.day2) <= :date2")
-         	->setParameter('date1', $container->getDateTimeStart()->format('Y-m-d'))
-         	->setParameter('date2', $container->getDateTimeEnd()->format('Y-m-d'))
-        	->andWhere('n.calendar = :calendar')
-        	->setParameter('calendar', $calendar)
+    	$entriesA = $qb->where('n.calendar = :calendar')
+            ->setParameter('calendar', $calendar)
+            ->andWhere(":year1 <= n.year1 AND n.year1 <= :year2")
+    	    ->setParameter('year1', (int) $start->format('Y'))
+    	    ->setParameter('year2', (int) $end->format('Y'))
+    	    ->andWhere(":month1 <= n.month1 AND n.month1 <= :month2")
+        	->setParameter('month1', (int) $start->format('m'))
+        	->setParameter('month2', (int) $end->format('m'))
+        	->andWhere(':day1 <= n.day1 AND n.day1 <= :day2')
+        	->setParameter('day1', (int) $start->format('d'))
+        	->setParameter('day2', (int) $end->format('d'))
         	->getQuery()->getResult();
+    	
+    	$qb = $this->nodes()->createQueryBuilder('CALENTB');
+    	$entriesB = $qb->where('n.calendar = :calendar')
+            ->setParameter('calendar', $calendar)
+    	    ->andWhere(":month1 <= n.month1 AND n.month1 <= :month2")
+        	->setParameter('month1', (int) $start->format('m'))
+        	->setParameter('month2', (int) $end->format('m'))
+        	->andWhere(':day1 <= n.day1 AND n.day1 <= :day2')
+        	->setParameter('day1', (int) $start->format('d'))
+        	->setParameter('day2', (int) $end->format('d'))
+        	->getQuery()->getResult();
+
+    	$entries = array_merge($entriesA, $entriesB);
     	$container->setEntries($entries);
     
     	return $container;

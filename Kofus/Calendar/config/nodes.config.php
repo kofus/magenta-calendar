@@ -61,6 +61,20 @@ return array(
                         )
                     )
                 )
+            ),
+            'CALENTB' => array(
+            		'label' => 'Date of Birth',
+            		'entity' => 'Kofus\Calendar\Entity\DateOfBirthEntity',
+            		'form' => array(
+            				'default' => array(
+            						'fieldsets' => array(
+            								'master' => array(
+            										'class' => 'Kofus\Calendar\Form\Fieldset\DateOfBirth\MasterFieldset',
+            										'hydrator' => 'Kofus\Calendar\Form\Hydrator\DateOfBirth\MasterHydrator'
+            								)
+            						)
+            				)
+            		)
             )
         )
     )

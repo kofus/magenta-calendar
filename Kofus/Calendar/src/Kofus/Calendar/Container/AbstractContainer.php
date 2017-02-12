@@ -55,6 +55,9 @@ abstract class AbstractContainer
         	    $entries = array();
         	    foreach ($this->entries as $entry) {
         	        $dateArray = $entry->getDate1();
+        	        if ($entry->getNodeType() == 'CALENTB') 
+        	            $dateArray[0] = $filterValue[0];
+        	        
         	        if ($dateArray != $filterValue)
         	            continue;
         	        $entries[] = $entry;

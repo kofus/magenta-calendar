@@ -4,7 +4,7 @@
             <thead>
                 <tr>
                     <?php foreach ($this->days as $day) : ?>
-                        <th><?php echo $day->getDateTimeStart()->format('l') ?></th>        
+                        <th><?php echo $this->translate($day->getDateTimeStart()->format('l')) ?></th>        
                     <?php endforeach ?>
                 </tr>
             </thead>
