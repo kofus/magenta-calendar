@@ -17,6 +17,7 @@ class MasterFieldset extends Fieldset implements InputFilterProviderInterface, S
         ));
         $el->setAttribute('class', 'datepicker');
         $el->setAttribute('data-language', \Locale::getPrimaryLanguage(\Locale::getDefault()));
+        $el->setAttribute('autocomplete', 'off');
         $this->add($el);
         
         $el = new Element\Time('time1', array(
