@@ -29,9 +29,10 @@ class MasterHydrator implements HydratorInterface, ServiceLocatorAwareInterface
 
     public function extract($object)
     {
-        $date1 = new \DateTime();
+        $date1 = null;
         $array = $object->getDate1();
         if (isset($array[0])) {
+            $date1 = new \DateTime();
             $array = $object->getDate1();
             $date1->setDate($array[0], $array[1], $array[2]);
         } 
@@ -56,14 +57,17 @@ class MasterHydrator implements HydratorInterface, ServiceLocatorAwareInterface
             $calendarId = $object->getCalendar()->getNodeId();
         
 
-        return array(
-            'date1' => $this->getIntlDateFormatterDate()->format($date1),
+        $return = array(
+            'date1' => null,
             'time1' => $time1,
             'title' => $object->getTitle(),
             'enabled' => $object->isEnabled(),
             'content' => $object->getContent(),
             'calendar' => $calendarId
         );
+        if ($date1)
+            $return['date1'] = $this->getIntlDateFormatterDate()->format($date1);
+        return $return;
     }
 
     public function hydrate(array $data, $object)
