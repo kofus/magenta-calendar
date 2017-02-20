@@ -22,7 +22,7 @@ class CalendarController extends AbstractActionController
    public function monthAction()
    {
        $this->archive()->uriStack()->push();
-       $calendar = $this->nodes()->getNode($this->params('id'), 'CAL');
+       $calendar = $this->nodes()->getNode($this->params('id', 'CAL1'), 'CAL');
        $service = $this->getServiceLocator()->get('KofusCalendarService');
 
        // Create month container
