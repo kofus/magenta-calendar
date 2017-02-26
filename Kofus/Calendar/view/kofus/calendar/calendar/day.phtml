@@ -8,6 +8,8 @@
        	$css[] = 'danger';
        if ($this->day->getDateTimeStart()->format('Y-m-d') == $today->format('Y-m-d'))
        	$css[] = 'today';
+       if (isset($this->currentMonth) && $this->day->getDateTimeStart()->format('m') != $this->currentMonth)
+           $css[] = 'inactive';
        if ($css) echo 'class="'.implode(' ', $css).'"';
        ?>>
        

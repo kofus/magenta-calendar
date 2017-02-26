@@ -43,20 +43,19 @@ class CalendarService extends AbstractService
     			$container->addHolidayList($listId, $lists[$listId]);
     	}
     	
+    	$config = $this->em()->getConfiguration();
+    	$config->addCustomStringFunction('LPAD', 'DoctrineExtensions\Query\Mysql\Lpad');    	
+    	
         $start = $container->getDateTimeStart();
         $end = $container->getDateTimeEnd();
+        
     	$qb = $this->nodes()->createQueryBuilder('CALENT');
     	$entriesA = $qb->where('n.calendar = :calendar')
             ->setParameter('calendar', $calendar)
-            ->andWhere(":year1 <= n.year1 AND n.year1 <= :year2")
-    	    ->setParameter('year1', (int) $start->format('Y'))
-    	    ->setParameter('year2', (int) $end->format('Y'))
-    	    ->andWhere(":month1 <= n.month1 AND n.month1 <= :month2")
-        	->setParameter('month1', (int) $start->format('m'))
-        	->setParameter('month2', (int) $end->format('m'))
-        	->andWhere(':day1 <= n.day1 AND n.day1 <= :day2')
-        	->setParameter('day1', (int) $start->format('d'))
-        	->setParameter('day2', (int) $end->format('d'))
+            ->andWhere("CONCAT(n.year1, '-', LPAD(n.month1, 2, '0'), '-', LPAD(n.day1, 2, '0')) >= :start")
+            ->andWhere("CONCAT(n.year1, '-', LPAD(n.month1, 2, '0'), '-', LPAD(n.day1, 2, '0')) <= :end")
+            ->setParameter('start', $start->format('Y-m-d'))
+            ->setParameter('end', $end->format('Y-m-d'))
         	->getQuery()->getResult();
     	
     	$qb = $this->nodes()->createQueryBuilder('CALENTB');

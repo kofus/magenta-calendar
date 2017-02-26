@@ -61,7 +61,7 @@
 	           <?php foreach ($this->month->getWeeks() as $week) : ?>
 	               <tr>
 	                   <?php foreach ($week->getDays() as $day) : ?>
-	                       <?php echo $this->partial('kofus/calendar/calendar/day.phtml', array('day' => $day)) ?>
+	                       <?php echo $this->partial('kofus/calendar/calendar/day.phtml', array('day' => $day, 'currentMonth' => $this->month->getDateTimeStart()->format('m'))) ?>
 	                   <?php endforeach ?>
 	               </tr>
 	           <?php endforeach ?>
