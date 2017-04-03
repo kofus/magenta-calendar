@@ -78,12 +78,16 @@ class CalendarService extends AbstractService
     public function getUpcomingEntries(CalendarEntity $calendar=null, $limit=5)
     {
         $today = new \DateTime();
+        
+        $config = $this->em()->getConfiguration();
+        $config->addCustomStringFunction('LPAD', 'DoctrineExtensions\Query\Mysql\Lpad');
+        
         $dates = $this->nodes()->createQueryBuilder('CALENT')
             ->where('n.enabled = true')
-            ->andWhere("CONCAT(n.year1, '-', n.month1, '-', n.day1) >= :date")
+            ->andWhere("CONCAT(n.year1, '-', LPAD(n.month1, 2, '0'), '-', LPAD(n.day1, 2, '0')) >= :date")
             ->setParameter('date', $today->format('Y-m-d'))
             ->setMaxResults($limit)
-            ->orderBy("CONCAT(n.year1, '-', n.month1, '-', n.day1)", 'ASC')
+            ->orderBy("CONCAT(n.year1, '-', LPAD(n.month1, 2, '0'), '-', LPAD(n.day1, 2, '0'))", 'ASC')
             ->getQuery()->getResult();
         return $dates;
  
