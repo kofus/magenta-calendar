@@ -64,7 +64,7 @@
                         (<?php echo $this->escapeHtml($entry->getAge($this->day->getDateTimeStart())) ?>)
                    <?php endif ?>
                 </a><br>
-            <?php elseif (! $entry->getDateTime2() || $entry->getDateTime1()->format('Y-m-d') == $this->day->getDateTimeStart()->format('Y-m-d')) : ?>
+            <?php elseif (! $entry->getDateTime2()) : ?>
                 
                 <a title="<?php echo $this->escapeHtmlAttr($entry->getTitle()) ?>" class="label label-default" href="<?php echo $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true) ?>"
                     style="<?php if ($entry->getColor()) echo 'background-color: ' . $entry->getColor() ?>">
