@@ -59,7 +59,7 @@ class ContentFieldset extends Fieldset implements InputFilterProviderInterface, 
             'color' => array(
             	'required' => false,
                 'filters' => array(
-            	   array('name' => 'Zend\Filter\Null'),
+            	   array('name' => 'Zend\Filter\ToNull'),
                     array('name' => 'Zend\Filter\StringTrim')
             )
                 

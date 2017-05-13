@@ -16,6 +16,20 @@
        if ($css) echo 'class="'.implode(' ', $css).'"';
        
       ?>>
+      
+      <?php 
+       // Time spans
+       foreach ($entries as $entry) {
+            if (! $entry->getDateTime2()) continue;
+            
+            if ($this->day->getDateTimeStart()->format('Y-m-d') >= $entry->getDateTime1()->format('Y-m-d')
+                && $this->day->getDateTimeStart()->format('Y-m-d') <= $entry->getDateTime2()->format('Y-m-d')) {
+                    echo '<a href="' . $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true) . '">';
+                    echo ' <i class="fa fa-square pull-right" data-toggle="tooltip" title="'.$this->escapeHtmlAttr($entry->getTitle()).'" style="color: '.$entry->getColor().'"></i>';
+                    echo '</a>';
+            }
+       }
+       ?>   
        
        <?php foreach ($this->day->getHolidays() as $holiday) : ?>
            <?php if ($holiday['type'] !== 'icon') continue ?>
@@ -33,19 +47,7 @@
            
        <?php endforeach ?>
        
-       <?php 
-       // Time spans
-       foreach ($entries as $entry) {
-            if (! $entry->getDateTime2()) continue;
-            
-            if ($this->day->getDateTimeStart()->format('Y-m-d') >= $entry->getDateTime1()->format('Y-m-d')
-                && $this->day->getDateTimeStart()->format('Y-m-d') <= $entry->getDateTime2()->format('Y-m-d')) {
-                    echo '<a href="' . $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true) . '">';
-                    echo ' <i class="fa fa-square pull-right" data-toggle="tooltip" title="'.$this->escapeHtmlAttr($entry->getTitle()).'" style="color: '.$entry->getColor().'"></i>';
-                    echo '</a>';
-            }
-       }
-       ?>       
+           
        	                           
 
        <strong><?php echo $this->day->getDateTimeStart()->format('d') ?></strong><br>

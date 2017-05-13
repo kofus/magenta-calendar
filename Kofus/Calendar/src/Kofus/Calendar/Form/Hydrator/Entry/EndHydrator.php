@@ -63,18 +63,19 @@ class EndHydrator implements HydratorInterface, ServiceLocatorAwareInterface
 
     public function hydrate(array $data, $object)
     {
-        $formatter = $this->getIntlDateFormatterDate();
-        $sec = $formatter->parse($data['date2']);
-        $dt = \DateTime::createFromFormat('U', $sec);
-        
-        $object->setDate2($dt->format('Y'), $dt->format('m'), $dt->format('d'));
-        if ($data['time2']) {
-            $array = explode(':', $data['time2']);
-            $object->setTime2($array[0], $array[1]);
-        } else {
-            $object->setTime2(null, null);
-        }
-        
+        if ($data['date2']) {
+            $formatter = $this->getIntlDateFormatterDate();
+            $sec = $formatter->parse($data['date2']);
+            $dt = \DateTime::createFromFormat('U', $sec);
+            
+            $object->setDate2($dt->format('Y'), $dt->format('m'), $dt->format('d'));
+            if ($data['time2']) {
+                $array = explode(':', $data['time2']);
+                $object->setTime2($array[0], $array[1]);
+            } else {
+                $object->setTime2(null, null);
+            }
+        }        
         return $object;
     }
     
