@@ -54,10 +54,25 @@ return array(
                 'form' => array(
                     'default' => array(
                         'fieldsets' => array(
+                            /*
                             'master' => array(
                                 'class' => 'Kofus\Calendar\Form\Fieldset\Entry\MasterFieldset',
                                 'hydrator' => 'Kofus\Calendar\Form\Hydrator\Entry\MasterHydrator'
-                            )
+                            ), */
+                            'begin' => array(
+                                'class' => 'Kofus\Calendar\Form\Fieldset\Entry\BeginFieldset',
+                                'hydrator' => 'Kofus\Calendar\Form\Hydrator\Entry\BeginHydrator'
+                            ),
+                            'end' => array(
+                            		'class' => 'Kofus\Calendar\Form\Fieldset\Entry\EndFieldset',
+                            		'hydrator' => 'Kofus\Calendar\Form\Hydrator\Entry\EndHydrator'
+                            ),
+                            'content' => array(
+                            		'class' => 'Kofus\Calendar\Form\Fieldset\Entry\ContentFieldset',
+                            		'hydrator' => 'Kofus\Calendar\Form\Hydrator\Entry\ContentHydrator'
+                            ),
+                            
+                            
                         )
                     )
                 )

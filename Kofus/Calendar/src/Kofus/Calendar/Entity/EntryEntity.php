@@ -230,6 +230,20 @@ class EntryEntity implements Node\NodeInterface, Node\EnableableNodeInterface
 		return $this;
 	}	
 	
+	/**
+	 * @ORM\Column(nullable=true)
+	 */	
+	protected $color;
+	
+	public function setColor($value)
+	{
+	    $this->color = $value; return $this;
+	}
+	
+	public function getColor()
+	{
+	    return $this->color;
+	}
 	
 	/**
 	 * @ORM\Column(type="boolean")

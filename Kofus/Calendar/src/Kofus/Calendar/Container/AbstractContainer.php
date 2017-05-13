@@ -52,15 +52,35 @@ abstract class AbstractContainer
     {
         switch ($filterKey) {
         	case 'day':
+        	    
         	    $entries = array();
         	    foreach ($this->entries as $entry) {
-        	        $dateArray = $entry->getDate1();
-        	        if ($entry->getNodeType() == 'CALENTB') 
-        	            $dateArray[0] = $filterValue[0];
         	        
-        	        if ($dateArray != $filterValue)
+        	        $dateTime1 = $entry->getDateTime1();
+        	        $dateTime2 = $entry->getDateTime2();
+        	        
+        	        // Birth dates
+        	        if ($entry->getNodeType() == 'CALENTB') {
+        	            $date1 = $entry->getDate1();
+        	            $sDate1 = $filterValue[0] . '-' . str_pad($date1[1], 2, '0', STR_PAD_LEFT) . '-' . str_pad($date1[2], 2, '0', STR_PAD_LEFT);
+        	            $sFilterValue = implode('-', $filterValue);
+        	            if ($sDate1 == $sFilterValue)
+        	                $entries[] = $entry;
         	            continue;
-        	        $entries[] = $entry;
+        	        }
+        	        
+        	        $dateTimeFilter = \DateTime::createFromFormat('Y-m-d', implode('-', $filterValue));
+        	        
+        	        // Dates with an end time
+        	        if ($dateTime2) {
+        	            if ($dateTime1->format('Y-m-d') <= $dateTimeFilter->format('Y-m-d') && $dateTime2->format('Y-m-d') >= $dateTimeFilter->format('Y-m-d'))
+        	            	$entries[] = $entry;
+        	            continue;
+        	        }
+
+        	        // Exact match?
+       	            if ($dateTime1->format('Y-m-d') == $dateTimeFilter->format('Y-m-d'))
+       	                $entries[] = $entry;
         	    }
         	    return $entries;
         	    break;

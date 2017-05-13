@@ -1,4 +1,7 @@
 <?php $today = new \DateTime() ?>
+<?php $entries = $this->day->getEntries() ?>
+
+
        <td <?php
        $css = array();
        
@@ -11,7 +14,8 @@
        if (isset($this->currentMonth) && $this->day->getDateTimeStart()->format('m') != $this->currentMonth)
            $css[] = 'inactive';
        if ($css) echo 'class="'.implode(' ', $css).'"';
-       ?>>
+       
+      ?>>
        
        <?php foreach ($this->day->getHolidays() as $holiday) : ?>
            <?php if ($holiday['type'] !== 'icon') continue ?>
@@ -28,6 +32,20 @@
            <?php endif ?>
            
        <?php endforeach ?>
+       
+       <?php 
+       // Time spans
+       foreach ($entries as $entry) {
+            if (! $entry->getDateTime2()) continue;
+            
+            if ($this->day->getDateTimeStart()->format('Y-m-d') >= $entry->getDateTime1()->format('Y-m-d')
+                && $this->day->getDateTimeStart()->format('Y-m-d') <= $entry->getDateTime2()->format('Y-m-d')) {
+                    echo '<a href="' . $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true) . '">';
+                    echo ' <i class="fa fa-square pull-right" data-toggle="tooltip" title="'.$this->escapeHtmlAttr($entry->getTitle()).'" style="color: '.$entry->getColor().'"></i>';
+                    echo '</a>';
+            }
+       }
+       ?>       
        	                           
 
        <strong><?php echo $this->day->getDateTimeStart()->format('d') ?></strong><br>
@@ -35,20 +53,21 @@
                   <?php if ($holiday['type'] != 'text') continue ?>
            <?php echo $holiday['label'] ?><br>
        <?php endforeach ?>
-       <?php $entries = $this->day->getEntries() ?>
+
        <?php foreach ($entries as $entry) : ?>
-           <?php if ('CALENTB' == $entry->getNodeType()) : ?>
-               <a title="<?php echo $this->escapeHtmlAttr($entry->getTitle()) ?>" class="label label-warning" href="<?php echo $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true) ?>">
+            <?php if ('CALENTB' == $entry->getNodeType()) : ?>
+                <a title="<?php echo $this->escapeHtmlAttr($entry->getTitle()) ?>" class="label label-warning" href="<?php echo $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true) ?>">
                    <?php echo $entry->getTitle(20) ?>
                    <?php if ($entry->getAge($this->day->getDateTimeStart())) : ?>
                         (<?php echo $this->escapeHtml($entry->getAge($this->day->getDateTimeStart())) ?>)
                    <?php endif ?>
-               </a><br>
-           <?php else : ?>
-               <a title="<?php echo $this->escapeHtmlAttr($entry->getTitle()) ?>" class="label label-default" href="<?php echo $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true) ?>">
+                </a><br>
+            <?php elseif (! $entry->getDateTime2() || $entry->getDateTime1()->format('Y-m-d') == $this->day->getDateTimeStart()->format('Y-m-d')) : ?>
+                
+                <a title="<?php echo $this->escapeHtmlAttr($entry->getTitle()) ?>" class="label label-default" href="<?php echo $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true) ?>">
                    <?php echo $entry->getTime1(true) ?>
                    <?php echo $entry->getTitle(20) ?>
-               </a><br>
+                </a><br>
            <?php endif ?>
        <?php endforeach ?>
        </td>
