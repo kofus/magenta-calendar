@@ -25,32 +25,32 @@
             if ($this->day->getDateTimeStart()->format('Y-m-d') >= $entry->getDateTime1()->format('Y-m-d')
                 && $this->day->getDateTimeStart()->format('Y-m-d') <= $entry->getDateTime2()->format('Y-m-d')) {
                     echo '<a href="' . $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true) . '">';
-                    echo ' <i class="fa fa-square pull-right" data-toggle="tooltip" title="'.$this->escapeHtmlAttr($entry->getTitle()).'" style="color: '.$entry->getColor().'"></i>';
+                    echo ' <i class="fa fa-square pull-left" data-toggle="tooltip" title="'.$this->escapeHtmlAttr($entry->getTitle()).'" style="color: '.$entry->getColor().'"></i>';
                     echo '</a>';
             }
        }
-       ?>   
+       ?>
        
        <?php foreach ($this->day->getHolidays() as $holiday) : ?>
            <?php if ($holiday['type'] !== 'icon') continue ?>
            
            <?php if ($holiday['label'] == 'new') : ?>
-               <i class="wi wi-moon-new pull-right" data-toggle="tooltip" title="Neumond"></i>
+               <i class="wi wi-moon-new pull-left" data-toggle="tooltip" title="Neumond" style="color: gray"></i>
            <?php elseif ($holiday['label'] == 'full') : ?>
-               <i class="wi wi-moon-full pull-right" data-toggle="tooltip" title="Vollmond"></i>
+               <i class="wi wi-moon-full pull-left" data-toggle="tooltip" title="Vollmond" style="color: gray"></i>
            <?php elseif ($holiday['label'] == 'waxing') : ?>
-               <i class="wi wi-moon-waxing-crescent-4 pull-right" data-toggle="tooltip" title="Zunehmender Mond"></i>
+               <i class="wi wi-moon-waxing-crescent-4 pull-left" data-toggle="tooltip" title="Zunehmender Mond" style="color: gray"></i>
            <?php elseif ($holiday['label'] == 'waning') : ?>
-               <i class="wi wi-moon-waning-crescent-2 pull-right" data-toggle="tooltip" title="Abnehmender Mond"></i>
+               <i class="wi wi-moon-waning-crescent-2 pull-left" data-toggle="tooltip" title="Abnehmender Mond" style="color: gray"></i>
                
            <?php endif ?>
            
        <?php endforeach ?>
        
-           
+       <strong class="pull-right"><?php echo $this->day->getDateTimeStart()->format('d') ?></strong><br>
+       
        	                           
 
-       <strong><?php echo $this->day->getDateTimeStart()->format('d') ?></strong><br>
        <?php foreach ($this->day->getHolidays() as $holiday) : ?>
                   <?php if ($holiday['type'] != 'text') continue ?>
            <?php echo $holiday['label'] ?><br>
