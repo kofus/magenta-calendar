@@ -30,7 +30,8 @@ class ContentFieldset extends Fieldset implements InputFilterProviderInterface, 
         $el->setValueOptions($valueOptions); 
         $this->add($el);
         
-        $el = new Element\Text('color', array('label' => 'Color'));
+        $el = new Element\Color('color', array('label' => 'Farbe'));
+        $el->setOption('help-block', 'Farbe für die Markierung von Zeitspannen');
         $this->add($el);
         
         $el = new Element\Checkbox('enabled', array(
