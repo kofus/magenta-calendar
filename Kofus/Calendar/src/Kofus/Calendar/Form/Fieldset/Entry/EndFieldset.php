@@ -20,6 +20,7 @@ class EndFieldset extends Fieldset implements InputFilterProviderInterface, Serv
         $el->setAttribute('class', 'datepicker');
         $el->setAttribute('data-language', \Locale::getPrimaryLanguage(\Locale::getDefault()));
         $el->setAttribute('autocomplete', 'off');
+        $el->setOption('help-block', 'Nur bei Zeitspannen über mehrere Tage erforderlich');
         $this->add($el);
         
         $el = new Element\Time('time2', array(
