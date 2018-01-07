@@ -76,7 +76,7 @@ class EndHydrator implements HydratorInterface, ServiceLocatorAwareInterface
                 $object->setTime2(null, null);
             }
         } else {
-            $object->setDate2(null);
+            $object->setDate2(null, null, null);
         }
         return $object;
     }

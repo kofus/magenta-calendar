@@ -33,13 +33,16 @@ class ContentHydrator implements HydratorInterface, ServiceLocatorAwareInterface
         if ($object->getCalendar())
             $calendarId = $object->getCalendar()->getNodeId();
         
+        $color = $object->getColor();
+        if (! $color)
+            $color = '#808080';
 
         $return = array(
             'title' => $object->getTitle(),
             'enabled' => $object->isEnabled(),
             'content' => $object->getContent(),
             'calendar' => $calendarId,
-            'color' => $object->getColor()
+            'color' => $color
         );
         
         return $return;
