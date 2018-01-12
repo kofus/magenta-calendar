@@ -33,16 +33,11 @@ class ContentHydrator implements HydratorInterface, ServiceLocatorAwareInterface
         if ($object->getCalendar())
             $calendarId = $object->getCalendar()->getNodeId();
         
-        $color = $object->getColor();
-        if (! $color)
-            $color = '#808080';
-
         $return = array(
             'title' => $object->getTitle(),
             'enabled' => $object->isEnabled(),
             'content' => $object->getContent(),
-            'calendar' => $calendarId,
-            'color' => $color
+            'calendar' => $calendarId
         );
         
         return $return;
@@ -53,7 +48,6 @@ class ContentHydrator implements HydratorInterface, ServiceLocatorAwareInterface
         $object->setTitle($data['title']);
         $object->isEnabled($data['enabled']);
         $object->setContent($data['content']);
-        $object->setColor($data['color']);
         
         $calendar = $this->getServiceLocator()->get('KofusNodeService')->getNode($data['calendar'], 'CAL');
         $object->setCalendar($calendar);

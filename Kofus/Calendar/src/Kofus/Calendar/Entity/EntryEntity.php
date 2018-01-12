@@ -12,7 +12,7 @@ use Kofus\Calendar\Entity\CalendarEntity;
  * @ORM\Table(name="kofus_calendar_entries")
  *
  */
-class EntryEntity implements Node\NodeInterface, Node\EnableableNodeInterface
+class EntryEntity implements Node\NodeInterface, Node\EnableableNodeInterface, Node\ParameterInterface
 {
     /**
      * @ORM\Id
@@ -228,21 +228,22 @@ class EntryEntity implements Node\NodeInterface, Node\EnableableNodeInterface
 		$this->hour2 = $dt->format('H');
 		$this->minute2 = $dt->format('i');
 		return $this;
-	}	
-	
-	/**
-	 * @ORM\Column(nullable=true)
-	 */	
-	protected $color;
-	
-	public function setColor($value)
-	{
-	    $this->color = $value; return $this;
 	}
 	
-	public function getColor()
+	/**
+	 * @ORM\Column(type="json_array")
+	 */
+	protected $params = array();
+	
+	public function setParam($key, $value)
 	{
-	    return $this->color;
+	    $this->params[$key] = $value; return $this;
+	}
+	
+	public function getParam($key)
+	{
+	    if (isset($this->params[$key]))
+	        return $this->params[$key];
 	}
 	
 	/**
