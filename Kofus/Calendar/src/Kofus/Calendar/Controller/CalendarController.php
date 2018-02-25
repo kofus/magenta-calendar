@@ -58,4 +58,54 @@ class CalendarController extends AbstractActionController
             'years' => $years
        ));
    }
+   
+    public function exportAction()
+    {
+        date_default_timezone_set('Europe/Berlin');
+        
+        $calendar = $this->nodes()->getNode($this->params('id', 'CAL1'), 'CAL');
+        $events = $this->nodes()->getRepository('CALENT')->findBy(array('calendar' => $calendar));
+       
+        $vCalendar = new \Eluceo\iCal\Component\Calendar($calendar->getTitle());
+        foreach ($events as $event) {
+            $vEvent = new \Eluceo\iCal\Component\Event();
+            $vEvent->setDtStart($event->getDateTime1());
+            $vEvent->setNoTime(! $event->hasTime1());
+            
+            if ($event->getDateTime2()) {
+                $vEvent->setDtEnd($event->getDateTime2());
+            }
+            
+            $vEvent->setSummary($event->getTitle());
+            $vEvent->setDescriptionHTML($event->getContent());
+            $vEvent->setTimezoneString('Europe/Berlin');
+            if ($event->getSite()) {
+                $site = $event->getSite();
+                $location = array();
+                if ($site->getAddressAdditional())
+                    $location[] = $site->getAddressAdditional();
+                if ($site->getAddress())
+                    $location[] = $site->getAddress();
+                if ($site->getCity())
+                    $location[] = trim($site->getZipCode() . ' ' . $site->getCity());
+                
+                $vEvent->setLocation(implode(', ', $location), $site->getTitle());
+            }
+            
+            $categories = array();
+            foreach ($event->getCategories() as $category)
+                $categories[] = $category->getTitle();
+            $vEvent->setCategories($categories);
+           
+            $vCalendar->addComponent($vEvent);
+        }
+        $filter = new \Kofus\System\Filter\UriSegment();
+        $filename = $filter->filter($calendar->getTitle());
+       
+        header('Content-Type: text/calendar; charset=utf-8');
+        header('Content-Disposition: attachment; filename="'.$filename.'.ics"');
+        echo $vCalendar->render();
+       
+        exit();
+    }
 }

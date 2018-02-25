@@ -5,7 +5,8 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Kofus\Calendar\Controller\Index' => 'Kofus\Calendar\Controller\IndexController',
-            'Kofus\Calendar\Controller\Calendar' => 'Kofus\Calendar\Controller\CalendarController'
+            'Kofus\Calendar\Controller\Calendar' => 'Kofus\Calendar\Controller\CalendarController',
+            'Kofus\Calendar\Controller\Category' => 'Kofus\Calendar\Controller\CategoryController',
         )
     ),
     'user' => array(
@@ -84,7 +85,8 @@ return array(
             'Kofus\Calendar' => true
         ),
         'module_layouts' => array(
-            'Kofus\Calendar\Controller\Calendar' => 'kofus/layout/admin'
+            'Kofus\Calendar\Controller\Calendar' => 'kofus/layout/admin',
+            'Kofus\Calendar\Controller\Category' => 'kofus/layout/admin',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view'

@@ -128,6 +128,11 @@ class EntryEntity implements Node\NodeInterface, Node\EnableableNodeInterface, N
 	    return array($this->hour1, $this->minute1);
 	}
 	
+	public function hasTime1()
+	{
+	    return ($this->hour1 !== null && $this->minute1 !== null);
+	}
+	
 	public function getDateTime1()
 	{
 	    if ($this->year1 === null && $this->month1 === null && $this->day1 === null)
@@ -136,7 +141,7 @@ class EntryEntity implements Node\NodeInterface, Node\EnableableNodeInterface, N
 	    $dt = new \DateTime();	    
 	    if ($this->year1 && $this->month1 && $this->day1)
 	        $dt->setDate($this->year1, $this->month1, $this->day1);
-	    if ($this->hour1 && $this->minute1)
+	    if ($this->hour1 !== null && $this->minute1 !== null)
 	        $dt->setTime($this->hour1, $this->minute1, 0);
 	    return $dt;
 	}
@@ -215,7 +220,7 @@ class EntryEntity implements Node\NodeInterface, Node\EnableableNodeInterface, N
 		$dt = new \DateTime();
 		if ($this->year2 && $this->month2 && $this->day2)
 			$dt->setDate($this->year2, $this->month2, $this->day2);
-		if ($this->hour2 && $this->minute2)
+		if ($this->hour2 != null && $this->minute2 != null)
 			$dt->setTime($this->hour2, $this->minute2, 0);
 		return $dt;
 	}
@@ -276,6 +281,25 @@ class EntryEntity implements Node\NodeInterface, Node\EnableableNodeInterface, N
 	public function getContent()
 	{
 	    return $this->content; 
+	}
+	
+	/**
+	 * @ORM\ManyToMany(targetEntity="Kofus\Calendar\Entity\CategoryEntity")
+	 * @ORM\JoinTable(name="kofus_calendar_categories_entries", 
+	 *     joinColumns={@ORM\JoinColumn(name="entry_id", referencedColumnName="id")},
+	 *     inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")}
+	 * )
+	 */
+	protected $categories = array();
+	
+	public function getCategories()
+	{
+	    return $this->categories;
+	}
+	
+	public function setCategories(array $entities)
+	{
+	    $this->categories = $entities; return $this;
 	}
 	
 	

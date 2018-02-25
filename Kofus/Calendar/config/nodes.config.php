@@ -3,7 +3,8 @@ return array(
     'nodes' => array(
         'enabled' => array(
             'CAL',
-            'CALENT'
+            'CALENT',
+            'CALCAT'
         ),
         'available' => array(
             'CAL' => array(
@@ -43,6 +44,16 @@ return array(
                             'params' => array(
                                 'id' => '{node_id}'
                             )
+                        ),
+                        'export' => array(
+                            'label' => 'Export',
+                            'route' => 'kofus_calendar',
+                            'controller' => 'calendar',
+                            'action' => 'export',
+                            'icon' => 'glyphicon glyphicon-export',
+                            'params' => array(
+                                'id' => '{node_id}'
+                            )
                         )
                     )
                 )
@@ -54,11 +65,6 @@ return array(
                 'form' => array(
                     'default' => array(
                         'fieldsets' => array(
-                            /*
-                            'master' => array(
-                                'class' => 'Kofus\Calendar\Form\Fieldset\Entry\MasterFieldset',
-                                'hydrator' => 'Kofus\Calendar\Form\Hydrator\Entry\MasterHydrator'
-                            ), */
                             'begin' => array(
                                 'class' => 'Kofus\Calendar\Form\Fieldset\Entry\BeginFieldset',
                                 'hydrator' => 'Kofus\Calendar\Form\Hydrator\Entry\BeginHydrator'
@@ -71,8 +77,6 @@ return array(
                             		'class' => 'Kofus\Calendar\Form\Fieldset\Entry\ContentFieldset',
                             		'hydrator' => 'Kofus\Calendar\Form\Hydrator\Entry\ContentHydrator'
                             ),
-                            
-                            
                         )
                     )
                 )
@@ -90,6 +94,38 @@ return array(
             						)
             				)
             		)
+            ),
+            'CALCAT' => array(
+                'label' => 'Kategorie',
+                'label_pl' => 'Kategorien',
+                'controllers' => array(
+                    'Kofus\Calendar\Controller\Category'
+                ),
+                'entity' => 'Kofus\Calendar\Entity\CategoryEntity',
+                'form' => array(
+                    'default' => array(
+                        'fieldsets' => array(
+                            'master' => array(
+                                'class' => 'Kofus\Calendar\Form\Fieldset\Category\MasterFieldset',
+                                'hydrator' => 'Kofus\Calendar\Form\Hydrator\Category\MasterHydrator'
+                            )
+                        )
+                    )
+                ),
+                'navigation' => array(
+                    'list' => array(
+                        'add' => array(
+                            'label' => 'Add',
+                            'route' => 'kofus_system',
+                            'controller' => 'node',
+                            'icon' => 'glyphicon glyphicon-plus',
+                            'action' => 'add',
+                            'params' => array(
+                                'id' => 'CALCAT'
+                            )
+                        )
+                    )
+                )
             )
         )
     )

@@ -1,0 +1,28 @@
+<?php 
+    $href = $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true);
+    $categories = $this->entry->getCategories();
+    if (count($categories)) {
+        $category = $categories[0];
+        $bgColor = $category->getBackgroundColor();
+        $color = $category->getColor();
+    } else {
+        $bgColor = 'gray';
+        $color = 'white';
+    }
+?>
+
+
+<?php if ($this->isPeriod) : ?>
+    <a title="<?php echo $this->escapeHtmlAttr($this->entry->getTitle()) ?>" 
+    	href="<?php echo $this->escapeHtmlAttr($href) ?>">
+    		<i class="fa fa-square pull-left" data-toggle="tooltip" style="<?php echo $this->escapeHtmlAttr('color: ' . $bgColor) ?>"></i>    
+    </a><br>
+<?php else : ?>
+    <a title="<?php echo $this->escapeHtmlAttr($this->entry->getTitle()) ?>" 
+    	class="label label-default" 
+    	href="<?php echo $this->escapeHtmlAttr($href) ?>"
+        style="<?php echo $this->escapeHtmlAttr('background-color: ' . $bgColor . '; color: ' . $color) ?>">
+    		<?php echo $entry->getTime1(true) ?>
+    		<?php echo $entry->getTitle(20) ?>
+    </a><br>
+<?php endif ?>

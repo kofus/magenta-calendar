@@ -24,12 +24,7 @@
             
             if ($this->day->getDateTimeStart()->format('Y-m-d') >= $entry->getDateTime1()->format('Y-m-d')
                 && $this->day->getDateTimeStart()->format('Y-m-d') <= $entry->getDateTime2()->format('Y-m-d')) {
-                    echo '<a href="' . $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true) . '">';
-                    $style = null;
-                    if ($entry->getParam('bgColor'))
-                        $style = 'background-color: ' . $entry->getParam('bgColor');
-                    echo ' <i class="fa fa-square pull-left" data-toggle="tooltip" title="'.$this->escapeHtmlAttr($entry->getTitle()).'" style="color: '.$style.'"></i>';
-                    echo '</a>';
+                    echo $this->partial('kofus/calendar/calendar/day/entry.phtml', array('entry' => $entry, 'isPeriod' => true));
             }
        }
        ?>
@@ -68,12 +63,7 @@
                    <?php endif ?>
                 </a><br>
             <?php elseif (! $entry->getDateTime2()) : ?>
-                
-                <a title="<?php echo $this->escapeHtmlAttr($entry->getTitle()) ?>" class="label label-default" href="<?php echo $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $entry->getNodeId()), true) ?>"
-                    style="<?php if ($entry->getParam('bgColor')) echo 'background-color: ' . $entry->getParam('bgColor') ?>">
-                   <?php echo $entry->getTime1(true) ?>
-                   <?php echo $entry->getTitle(20) ?>
-                </a><br>
+                <?php echo $this->partial('kofus/calendar/calendar/day/entry.phtml', array('entry' => $entry)) ?>
            <?php endif ?>
        <?php endforeach ?>
        </td>

@@ -24,22 +24,30 @@ class ContentFieldset extends Fieldset implements InputFilterProviderInterface, 
         $el->setAttribute('class', 'ckeditor');
         $this->add($el);
         
+        // Calendar
         $el = new Element\Select('calendar', array(
             'label' => 'Calendar'
         ));
         $valueOptions = array();
-        foreach ($this->getServiceLocator()
-            ->get('KofusNodeService')
+        foreach ($this->nodes()
             ->getRepository('CAL')
             ->findAll() as $calendar)
             $valueOptions[$calendar->getNodeId()] = $calendar->getTitle();
         $el->setValueOptions($valueOptions);
         $this->add($el);
         
-        // $el = new Element\Color('color', array('label' => 'Farbe'));
-        // $el->setOption('help-block', 'Farbe für die Markierung von Zeitspannen');
-        // $this->add($el);
+        // Categories
+        $categories = $this->nodes()->getRepository('CALCAT')->findBy(array(), array('priority' => 'ASC'));
+        if ($categories) {
+            $valueOptions = array();
+            foreach ($categories as $category)
+                $valueOptions[$category->getNodeId()] = $category->getTitle();
+            $el = new Element\MultiCheckbox('categories', array('label' => 'Kategorien'));
+            $el->setValueOptions($valueOptions);
+            $this->add($el);
+        }
         
+        // enabled?
         $el = new Element\Checkbox('enabled', array(
             'label' => 'enabled?'
         ));
@@ -63,6 +71,9 @@ class ContentFieldset extends Fieldset implements InputFilterProviderInterface, 
             'calendar' => array(
                 'required' => true
             ),
+            'categories' => array(
+                'required' => false
+            )
         );
     }
 
@@ -76,6 +87,11 @@ class ContentFieldset extends Fieldset implements InputFilterProviderInterface, 
     public function getServiceLocator()
     {
         return $this->sm;
+    }
+    
+    protected function nodes()
+    {
+        return $this->getServiceLocator()->get('KofusNodeService');
     }
 }
 

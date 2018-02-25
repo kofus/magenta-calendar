@@ -7,37 +7,22 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class ContentHydrator implements HydratorInterface, ServiceLocatorAwareInterface
 {
-    protected function getIntlDateFormatterDate()
-    {
-        return new \IntlDateFormatter(
-            \Locale::getDefault(), 
-            \IntlDateFormatter::MEDIUM,
-            \IntlDateFormatter::NONE,
-            'UTC'
-        );
-    }
-    
-    protected function getIntlDateFormatterTime()
-    {
-    	return new \IntlDateFormatter(
-    			\Locale::getDefault(),
-    			\IntlDateFormatter::NONE,
-    			\IntlDateFormatter::SHORT,
-    			'UTC'
-    	);
-    }
-
     public function extract($object)
     {
         $calendarId = null;
         if ($object->getCalendar())
             $calendarId = $object->getCalendar()->getNodeId();
         
+        $categoryIds = array();
+        foreach ($object->getCategories() as $category)
+            $categoryIds[$category->getNodeId()] = $category->getNodeId();
+        
         $return = array(
             'title' => $object->getTitle(),
             'enabled' => $object->isEnabled(),
             'content' => $object->getContent(),
-            'calendar' => $calendarId
+            'calendar' => $calendarId,
+            'categories' => $categoryIds
         );
         
         return $return;
@@ -45,9 +30,19 @@ class ContentHydrator implements HydratorInterface, ServiceLocatorAwareInterface
 
     public function hydrate(array $data, $object)
     {
+        $categories = array();
+        if ($data['categories']) {
+            foreach ($data['categories'] as $categoryId) {
+                $category = $this->nodes()->getNode($categoryId, 'CALCAT');
+                $categories[] = $category;
+            }
+        }
+        
+        
         $object->setTitle($data['title']);
         $object->isEnabled($data['enabled']);
         $object->setContent($data['content']);
+        $object->setCategories($categories);
         
         $calendar = $this->getServiceLocator()->get('KofusNodeService')->getNode($data['calendar'], 'CAL');
         $object->setCalendar($calendar);
@@ -65,5 +60,10 @@ class ContentHydrator implements HydratorInterface, ServiceLocatorAwareInterface
     public function getServiceLocator()
     {
     	return $this->sm;
-    }    
+    }   
+    
+    protected function nodes()
+    {
+        return $this->getServiceLocator()->get('KofusNodeService');
+    }
 }
