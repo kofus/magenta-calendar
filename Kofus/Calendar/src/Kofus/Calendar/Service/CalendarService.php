@@ -25,6 +25,8 @@ class CalendarService extends AbstractService
             ->setParameter('month', $month)
             ->andWhere('n.calendar = :calendar')
             ->setParameter('calendar', $calendar)
+            ->orderBy('n.hour1', 'ASC')
+            ->addOrderBy('n.minute1', 'ASC')
             ->getQuery()->getResult();
         $container->setEntries($entries);
         

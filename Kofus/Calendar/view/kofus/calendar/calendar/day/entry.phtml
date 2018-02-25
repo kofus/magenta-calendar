@@ -18,11 +18,13 @@
     		<i class="fa fa-square pull-left" data-toggle="tooltip" style="<?php echo $this->escapeHtmlAttr('color: ' . $bgColor) ?>"></i>    
     </a><br>
 <?php else : ?>
-    <a title="<?php echo $this->escapeHtmlAttr($this->entry->getTitle()) ?>" 
-    	class="label label-default" 
-    	href="<?php echo $this->escapeHtmlAttr($href) ?>"
-        style="<?php echo $this->escapeHtmlAttr('background-color: ' . $bgColor . '; color: ' . $color) ?>">
-    		<?php echo $entry->getTime1(true) ?>
-    		<?php echo $entry->getTitle(20) ?>
-    </a><br>
+	<div style="margin-bottom: 2px">
+        <a title="<?php echo $this->escapeHtmlAttr($this->entry->getTitle()) ?>" 
+        	class="label label-default" 
+        	href="<?php echo $this->escapeHtmlAttr($href) ?>"
+            style="<?php echo $this->escapeHtmlAttr('background-color: ' . $bgColor . '; color: ' . $color) ?>">
+        		<?php echo $entry->getTime1(true) ?>
+        		<?php echo $entry->getTitle(20) ?>
+        </a>
+    </div>
 <?php endif ?>
