@@ -54,6 +54,12 @@ return array(
                             'params' => array(
                                 'id' => '{node_id}'
                             )
+                        ),
+                        'categories' => array(
+                            'label' => 'Categories',
+                            'route' => 'kofus_calendar',
+                            'controller' => 'category',
+                            'action' => 'list'
                         )
                     )
                 )

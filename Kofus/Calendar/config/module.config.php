@@ -11,8 +11,7 @@ return array(
     ),
     'user' => array(
         'controller_mappings' => array(
-            'Kofus\Calendar\Controller\Index' => 'Frontend',
-            'Kofus\Calendar\Controller\Calendar' => 'Backend'
+            'Kofus\Calendar\Controller\Index' => 'Frontend'
         )
     ),
     
