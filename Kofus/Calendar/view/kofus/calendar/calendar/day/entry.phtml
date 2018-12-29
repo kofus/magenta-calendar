@@ -24,6 +24,10 @@
         	href="<?php echo $this->escapeHtmlAttr($href) ?>"
             style="<?php echo $this->escapeHtmlAttr('background-color: ' . $bgColor . '; color: ' . $color) ?>">
         		<?php echo $entry->getTime1(true) ?>
+        		<?php if ($entry->getTime2(true)) : ?>
+        		- <?php echo $entry->getTime2(true) ?>
+        		<?php endif ?>
+        		
         		<?php echo $entry->getTitle(20) ?>
         </a>
     </div>

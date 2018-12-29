@@ -20,7 +20,7 @@
       <?php 
        // Time spans
        foreach ($entries as $entry) {
-            if (! $entry->getDateTime2()) continue;
+            if (! $entry->getDateTime2() || $entry->getDateTime1()->format('Y-m-d') == $entry->getDateTime2()->format('Y-m-d')) continue;
             
             if ($this->day->getDateTimeStart()->format('Y-m-d') >= $entry->getDateTime1()->format('Y-m-d')
                 && $this->day->getDateTimeStart()->format('Y-m-d') <= $entry->getDateTime2()->format('Y-m-d')) {
@@ -62,7 +62,7 @@
                         (<?php echo $this->escapeHtml($entry->getAge($this->day->getDateTimeStart())) ?>)
                    <?php endif ?>
                 </a><br>
-            <?php elseif (! $entry->getDateTime2()) : ?>
+            <?php elseif (! $entry->getDateTime2() || $entry->getDateTime2()->format('Y-m-d') == $entry->getDateTime1()->format('Y-m-d')) : ?>
                 <?php echo $this->partial('kofus/calendar/calendar/day/entry.phtml', array('entry' => $entry)) ?>
            <?php endif ?>
        <?php endforeach ?>
