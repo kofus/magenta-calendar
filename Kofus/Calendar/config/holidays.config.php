@@ -4,12 +4,40 @@ return array(
         'holidays' => array(
             'enabled' => array(
                 'de_DE_HE',
-                'de_DE_HE_INFO'
+                'de_DE_HE_INFO',
+                'en_UK_SCHOOL',
+                'de_DE_HE_SCHOOL'
             ),
             'available' => array(
+                
+                'en_UK_SCHOOL' => array(
+                    'label' => 'English School Holidays (2020)',
+                    'type' => 'line',
+                    'color' => 'yellow',
+                    'entries' => array(
+                        array('from' => '2020-02-17', 'to' => '2020-02-21', 'label' => 'Half Term'),
+                        array('from' => '2020-04-06', 'to' => '2020-04-17', 'label' => 'Easter Holidays'),
+                        array('from' => '2020-05-25', 'to' => '2020-05-29', 'label' => 'Half Term'),
+                        array('from' => '2020-07-21', 'to' => '2020-09-02', 'label' => 'Summer Holidays')
+                    )
+                    
+                ),
+                'de_DE_HE_SCHOOL' => array(
+                    'label' => 'Schulferien Hessen (2020)',
+                    'type' => 'line',
+                    'color' => 'green',
+                    'entries' => array(
+                        array('from' => '2019-12-23', 'to' => '2020-01-11', 'label' => 'Weihnachtsferien'),
+                        array('from' => '2020-04-06', 'to' => '2020-04-18', 'label' => 'Osterferien'),
+                        array('from' => '2020-07-06', 'to' => '2020-08-14', 'label' => 'Sommerferien'),
+                        array('from' => '2020-10-05', 'to' => '2020-10-17', 'label' => 'Herbstferien'),
+                        array('from' => '2020-12-21', 'to' => '2021-01-09', 'label' => 'Weihnachtsferien')
+                    )
+                ),
                 'de_DE_HE' => array(
-                    'label' => 'Gesetzl. Feiertage in Hessen',
+                    'label' => 'Gesetzl. Feiertage in Hessen (2016-2021)',
                     'type' => 'text',
+
                     'entries' => array(
                         '2016-01-01' => 'Neujahr',
                         '2016-03-25' => 'Karfreitag',
@@ -54,12 +82,35 @@ return array(
                         '2019-06-20' => 'Fronleichnam',
                         '2019-10-03' => 'Tag der Deutschen Einheit',
                         '2019-12-25' => '1. Weihnachtsfeiertag',
-                        '2019-12-26' => '2. Weihnachtsfeiertag'
+                        '2019-12-26' => '2. Weihnachtsfeiertag',
+                        
+                        '2020-01-01' => 'Neujahr',
+                        '2020-04-10' => 'Karfreitag',
+                        '2020-04-13' => 'Ostermontag',
+                        '2020-05-01' => 'Tag der Arbeit',
+                        '2020-05-21' => 'Christi Himmelfahrt',
+                        '2020-06-01' => 'Pfingstmontag',
+                        '2020-06-11' => 'Fronleichnam',
+                        '2020-10-03' => 'Tag der Deutschen Einheit',
+                        '2020-12-25' => '1. Weihnachtsfeiertag',
+                        '2020-12-26' => '2. Weihnachtsfeiertag',
+                        
+                        '2021-01-01' => 'Neujahr',
+                        '2021-04-02' => 'Karfreitag',
+                        '2021-04-05' => 'Ostermontag',
+                        '2021-05-01' => 'Tag der Arbeit',
+                        '2021-05-13' => 'Christi Himmelfahrt',
+                        '2021-05-24' => 'Pfingstmontag',
+                        '2021-06-03' => 'Fronleichnam',
+                        '2021-10-03' => 'Tag der Deutschen Einheit',
+                        '2021-12-25' => '1. Weihnachtsfeiertag',
+                        '2021-12-26' => '2. Weihnachtsfeiertag',
+                        
                         
                     )
                 ),
                 'de_DE_HE_INFO' => array(
-                    'label' => 'Nicht gesetzl. Feiertage in Hessen',
+                    'label' => 'Nicht gesetzl. Feiertage in Hessen (2017-2020)',
                     'type' => 'text',
                     'entries' => array(
                         '2016-12-31' => 'Silvester',
@@ -174,7 +225,39 @@ return array(
                         '2019-12-15' => '3. Advent',
                         '2019-12-22' => '4. Advent / Winteranfang',
                         '2019-12-24' => 'Heiligabend',
-                        '2019-12-31' => 'Silvester'
+                        '2019-12-31' => 'Silvester',
+                        
+                        '2020-02-14' => 'Valentinstag',
+                        '2020-02-20' => 'Weiberfastnacht',
+                        '2020-02-22' => 'Fastnachtssamstag',
+                        '2020-02-23' => 'Fastnachtssonntag',
+                        '2020-02-24' => 'Rosenmontag',
+                        '2020-02-25' => 'Fastnacht',
+                        '2020-02-26' => 'Aschermittwoch',
+                        '2020-04-05' => 'Palmsonntag',
+                        '2020-04-09' => 'Gründonnerstag',
+                        '2020-04-11' => 'Karsamstag',
+                        '2020-04-30' => 'Walpurgisnacht',
+                        '2020-05-10' => 'Muttertag',
+                        '2020-05-21' => 'Christi Himmelfahrt',
+                        '2020-06-17' => 'Aufstand des 17. Juni',
+                        '2020-06-24' => 'Johannistag',
+                        '2020-06-29' => 'Peter und Paul',
+                        '2020-10-04' => 'Erntedankfest',
+                        '2020-10-31' => 'Halloween',
+                        '2020-11-02' => 'Allerseelen',
+                        '2020-11-11' => 'Martinstag',
+                        '2020-11-15' => 'Volkstrauertag',
+                        '2020-11-22' => 'Totensonntag',
+                        '2020-11-29' => '1. Advent',
+                        '2020-12-04' => 'Barbara',
+                        '2020-12-06' => 'Nikolaus',
+                        '2020-12-06' => '2. Advent',
+                        '2020-12-13' => '3. Advent',
+                        '2020-12-20' => '4. Advent',
+                        '2020-12-24' => 'Heiligabend',
+                        '2020-12-31' => 'Silvester'
+                       
                     )
                 ),
                 'de_DE_MOON' => array(
@@ -334,7 +417,63 @@ return array(
                         '2019-12-04' => 'waxing',
                         '2019-12-12' => 'full',
                         '2019-12-19' => 'waning',
-                        '2019-12-26' => 'new'
+                        '2019-12-26' => 'new',
+                        
+                        '2020-01-03' => 'waxing',
+                        '2020-01-10' => 'full',
+                        '2020-01-17' => 'waning',
+                        '2020-01-24' => 'new',
+                        '2020-02-02' => 'waxing',
+                        '2020-02-09' => 'full',
+                        '2020-02-15' => 'waning',
+                        '2020-02-23' => 'new',
+                        '2020-03-02' => 'waxing',
+                        '2020-03-09' => 'full',
+                        '2020-03-16' => 'waning',
+                        '2020-03-24' => 'new',
+                        '2020-04-01' => 'waxing',
+                        '2020-04-08' => 'full',
+                        '2020-04-15' => 'waning',
+                        '2020-04-23' => 'new',
+                        '2020-04-30' => 'waxing',
+                        '2020-05-07' => 'full',
+                        '2020-05-14' => 'waning',
+                        '2020-05-22' => 'new',
+                        '2020-05-30' => 'waxing',
+                        '2020-06-05' => 'full',
+                        '2020-06-13' => 'waning',
+                        '2020-06-21' => 'new',
+                        '2020-06-28' => 'waxing',
+                        '2020-07-05' => 'full',
+                        '2020-07-13' => 'waning',
+                        '2020-07-20' => 'new',
+                        '2020-07-29' => 'waxing',
+                        '2020-08-03' => 'full',
+                        '2020-08-11' => 'waning',
+                        '2020-08-19' => 'new',
+                        '2020-08-25' => 'waxing',
+                        '2020-09-02' => 'full',
+                        '2020-09-10' => 'waning',
+                        '2020-09-17' => 'new',
+                        '2020-09-24' => 'waxing',
+                        '2020-10-01' => 'full',
+                        '2020-10-10' => 'waning',
+                        '2020-10-16' => 'new',
+                        '2020-10-23' => 'waxing',
+                        '2020-10-31' => 'full',
+                        '2020-11-08' => 'waning',
+                        '2020-11-15' => 'new',
+                        '2020-11-22' => 'waxing',
+                        '2020-11-30' => 'full',
+                        '2020-12-08' => 'waning',
+                        '2020-12-14' => 'new',
+                        '2020-12-22' => 'waxing',
+                        '2020-12-30' => 'fullexz'
+                        
+                        
+                       
+                        
+                        
                         
                         
                     )

@@ -18,7 +18,8 @@ class Day extends AbstractContainer
     
     public function getHolidays()
     {
-        $today = $this->getDateTimeStart()->format('Y-m-d');
+        $dt = $this->getDateTimeStart();
+        $today = $dt->format('Y-m-d');
         $holidays = array();
         foreach ($this->holidayLists as $listId => $data) {
             foreach ($data['entries'] as $date => $label) {
@@ -29,6 +30,18 @@ class Day extends AbstractContainer
                         'list_id' => $listId,
                         'type' => $data['type']
                     );
+                } elseif (isset($label['from']) && isset($label['to'])) {
+                    $from = \DateTime::createFromFormat('Y-m-d', $label['from']);
+                    $to = \DateTime::createFromFormat('Y-m-d', $label['to']);
+                    if ($from <= $dt && $dt <= $to) {
+                        $holidays[] = array(
+                            'label' => $label['label'],
+                            'list' => $data['label'],
+                            'list_id' => $listId,
+                            'type' => $data['type'],
+                            'color' => $data['color']
+                        );
+                    }
                 }
             }
         }
