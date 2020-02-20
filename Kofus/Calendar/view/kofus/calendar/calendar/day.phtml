@@ -1,5 +1,12 @@
 <?php $today = new \DateTime() ?>
 <?php $entries = $this->day->getEntries() ?>
+<?php
+    $lines = array();
+    foreach ($this->day->getHolidays() as $holiday) {
+        if ('line' == $holiday['type']) $lines[] = $holiday;
+    }
+
+?>
 
 
        <td <?php
@@ -15,7 +22,14 @@
            $css[] = 'inactive';
        if ($css) echo 'class="'.implode(' ', $css).'"';
        
+       if ($lines) echo 'style="padding-top: 1px"';
+       
       ?>>
+      
+	<?php foreach ($lines as $holiday) : ?>
+       		<div class="day-line" title="<?php echo $this->escapeHtmlAttr($holiday['label']) ?>" style="background-color: <?php echo $this->escapeHtmlAttr($holiday['color']) ?>"></div>
+       <?php endforeach ?>
+       
       
       <?php 
        // Time spans
@@ -29,6 +43,7 @@
        }
        ?>
        
+
        <?php foreach ($this->day->getHolidays() as $holiday) : ?>
            <?php if ($holiday['type'] !== 'icon') continue ?>
            
@@ -44,8 +59,26 @@
            <?php endif ?>
            
        <?php endforeach ?>
-       
-       <strong class="pull-right"><?php echo $this->day->getDateTimeStart()->format('d') ?></strong><br>
+       <?php
+            $today = new \DateTime();
+            $dt = $this->day->getDateTimeStart();
+            $day = $this->nodes()->getRepository('DAY')->findOneBy(array('date' => $dt));
+            if (! $day && ($dt->format('Y-m-d') == $today->format('Y-m-d'))) {
+                $day = new \BackOffice\Entity\DayEntity();
+                $day->setDate($today);
+                $this->em()->persist($day);
+                $this->em()->flush();
+            }
+ 
+       ?>
+       <?php if ($day) : ?>
+	       <strong class="pull-right">
+	       	<a href="<?php echo $this->url('kofus_system', array('controller' => 'node', 'action' => 'edit', 'id' => $day->getNodeId())) ?>">
+	       		<?php echo $this->day->getDateTimeStart()->format('d') ?></strong><br>
+	       	</a>
+       <?php else : ?>
+	       <strong class="pull-right"><?php echo $this->day->getDateTimeStart()->format('d') ?></strong><br>
+       <?php endif ?>
        
        	                           
 
