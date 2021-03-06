@@ -18,7 +18,7 @@ return array(
                         array('from' => '2020-02-17', 'to' => '2020-02-21', 'label' => 'Half Term'),
                         array('from' => '2020-04-06', 'to' => '2020-04-17', 'label' => 'Easter Holidays'),
                         array('from' => '2020-05-25', 'to' => '2020-05-29', 'label' => 'Half Term'),
-                        array('from' => '2020-07-21', 'to' => '2020-09-02', 'label' => 'Summer Holidays')
+                        array('from' => '2020-07-21', 'to' => '2020-09-02', 'label' => 'Summer Holidays'),
                     )
                     
                 ),
@@ -31,7 +31,15 @@ return array(
                         array('from' => '2020-04-06', 'to' => '2020-04-18', 'label' => 'Osterferien'),
                         array('from' => '2020-07-06', 'to' => '2020-08-14', 'label' => 'Sommerferien'),
                         array('from' => '2020-10-05', 'to' => '2020-10-17', 'label' => 'Herbstferien'),
-                        array('from' => '2020-12-21', 'to' => '2021-01-09', 'label' => 'Weihnachtsferien')
+                        array('from' => '2020-12-21', 'to' => '2021-01-09', 'label' => 'Weihnachtsferien'),
+                        
+                        array('from' => '2021-04-06', 'to' => '2021-04-16', 'label' => 'Osterferien'),
+                        array('from' => '2021-07-19', 'to' => '2021-08-27', 'label' => 'Sommerferien'),
+                        array('from' => '2021-10-11', 'to' => '2021-10-23', 'label' => 'Herbstferien'),
+                        array('from' => '2021-12-23', 'to' => '2022-01-08', 'label' => 'Weihnachtsferien')
+                        
+                        
+                        
                     )
                 ),
                 'de_DE_HE' => array(
